@@ -11,6 +11,9 @@ header{
     background-image: url("images/bg-header-desktop.svg");
     background-color: rgb(94,164,164);
     height: 155px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 ul{
@@ -129,4 +132,20 @@ h2{
 
 .featured-div{
     border-left: 5px solid rgb(94,164,164);
+}
+
+#myInput{
+
+    width: 500px;
+    height: 40px;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: -20px;
+    border: none;
+    box-shadow: 5px 5px 30px 0px lightblue;
+    
+}
+
+::placeholder{
+    color: lightgrey;
 }

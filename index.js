@@ -52,6 +52,42 @@ function Listing(logoURL, employer, isNew, isFeatured, jobTitle, dateListed, com
 
 }
 
+function filterListings(){
+
+    let inputFilter = document.getElementById("myInput").value.toLowerCase()
+
+    let listingDivs = document.getElementsByClassName("listing");
+
+    for(let i = 0; i < listingDivs.length; i++){
+
+        let unorderedList = listingDivs[i].lastElementChild.firstChild;
+        let listItems = unorderedList.children;
+
+        for(let j = 0 ; j < listItems.length; j++){
+
+            let item = listItems[j];
+
+            let divToHide = item.parentNode.parentNode.parentNode;
+            
+            console.log(item.innerText.toLowerCase())
+            
+            if (item.innerText.toLowerCase().includes(inputFilter)){
+
+                divToHide.style.display = "flex"
+                break
+
+            }else{
+
+                divToHide.style.display = "none"
+
+            }
+
+        }
+
+    }
+
+}
+
 function createListingDisplay(listing){
 
     // Create Listing Div
@@ -63,20 +99,20 @@ function createListingDisplay(listing){
     if(listing.isFeatured){
 
         listingContainer.classList.add("featured-div")
-        
+
     }
 
     // Create lodo DIV and add it to listing Container
 
-    let logoDiv = createLogoDiv(listing)
+    let logoDiv = createLogoDiv(listing);
 
     listingContainer.appendChild(logoDiv);
 
     // NEXT WE WILL CREATE THE JOB DETAILS DIV AND THEN ADD IT TO THE LISTING CONTAINER WE ORIGINALLY CREATED.
 
-    let jobDetails = createJobDetails(listing)
+    let jobDetails = createJobDetails(listing);
 
-    listingContainer.appendChild(jobDetails)
+    listingContainer.appendChild(jobDetails);
 
     let skills = createSkills(listing);
 
