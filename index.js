@@ -1,16 +1,42 @@
-// let listingAttempt = {
-//     logoURL: "images/manage.svg",
-//     employer: "Manage",
-//     isNew: true,
-//     isFeatured: true,
-//     jobTitle: "Senior Frontend Developer",
-//     dateListed: 1,
-//     commitment: "Full Time",
-//     location: "Remote",
-//     skills: ["Fullstack", "Midweight", "Python", "React"]
-// }
+let listings = []
 
-let listingAttempt = new Listing("images/manage.svg", "Manage", true, true, "Senior Frontend Developer", 1, "Full Time", "Remote", ["Fullstack", "Midweight", "Python", "React"])
+let firstListing = new Listing("images/photosnap.svg", "PhotoSnap", true, true, "Senior Frontend Developer", 1, "Full Time", "USA only", ["Frontend", "Senior", "HTML", "CSS", "JavaScript"])
+listings.push(firstListing);
+
+let listingAttempt = new Listing("images/manage.svg", "Manage", true, true, "Senior Frontend Developer", 1, "Part Time", "Remote", ["Fullstack", "Midweight", "Python", "React"])
+listings.push(listingAttempt);
+
+let listing = new Listing("images/account.svg", "Account", true, false, "Junior Fontend Developer", 2, "Part Time", "USA only", ["Frontend","Junior","React","Sass","JavaScript"])
+listings.push(listing);
+
+let listing4 = new Listing("images/myhome.svg", "MyHome", false, false, "Junior Frontend Developer", 5, "Contract", "USA only", ["Frontend", "Junior", "CSS", "JavaScript"]);
+listings.push(listing4);
+
+let listing5 = new Listing("images/loop-studios.svg", "Loop Studios", false, false, "Software Engineer", 7, "Full Time", "Worldwide", ["Fullstack", "Midweight", "JavaScript", "Sass", "Ruby"])
+listings.push(listing5);
+
+let listing6 = new Listing("images/faceit.svg","FaceIt", false, false, "Junior Backend Developer", 14, "Full Time", "UK only", ["Backend", "Junior", "Ruby", "RoR"]);
+listings.push(listing6);
+
+let listing7 = new Listing("images/shortly.svg", "Shortly", false, false, "Junior Developer", 7, "Full Time", "Worldwide", ["Frontend", "Junior", "HTML", "Sass", "JavaScript"]);
+listings.push(listing7);
+
+let listing8 = new Listing("images/insure.svg", "Insure", false, false, "Junior Frontend Developer", 7, "Full Time", "USA only", ["Frontend", "Junior", "Vue", "JavaScript", "Sass"]);
+listings.push(listing8);
+
+let listing9 = new Listing("images/eyecam-co.svg", "Eyecam Co.", false, false, "Full Stack Engineer", 21, "Full Time", "Worldwide", ["Fullstack", "Midweight", "JavaScript", "Django", "Python"]);
+listings.push(listing9)
+
+let listing10 = new Listing("images/the-air-filter-company.svg", "The Air Filter Company", false, false, "Fullstack Engineer", 32, "Part Time", "Worldwide", ["Frontend", "Junior", "React", "Sass", "JavaScript"])
+listings.push(listing10)
+
+
+for(let i = 0 ; i < listings.length; i++){
+
+    createListingDisplay(listings[i])
+
+}
+
 
 function Listing(logoURL, employer, isNew, isFeatured, jobTitle, dateListed, commitment, location, skills){
 
@@ -26,121 +52,205 @@ function Listing(logoURL, employer, isNew, isFeatured, jobTitle, dateListed, com
 
 }
 
-// THIS IS WHAT WE WILL EVENTUALLY RENDER
-let listingContainer = document.createElement("div");
+function createListingDisplay(listing){
 
-listingContainer.classList.add("listing");
+    // Create Listing Div
+    
+    let listingContainer = document.createElement("div");
 
-let logoDiv = document.createElement("div");
+    listingContainer.classList.add("listing");
 
-logoDiv.classList.add("logo");
+    if(listing.isFeatured){
 
-let logo = document.createElement("img");
+        listingContainer.classList.add("featured-div")
+        
+    }
 
-logo.src = listingAttempt.logoURL;
-logo.alt = "logo";
+    // Create lodo DIV and add it to listing Container
 
-logoDiv.appendChild(logo);
+    let logoDiv = createLogoDiv(listing)
 
-listingContainer.appendChild(logoDiv);
+    listingContainer.appendChild(logoDiv);
 
-// NEXT WE WILL CREATE THE JOB DETAILS DIV AND THEN ADD IT TO THE LISTING CONTAINER WE ORIGINALLY CREATED.
+    // NEXT WE WILL CREATE THE JOB DETAILS DIV AND THEN ADD IT TO THE LISTING CONTAINER WE ORIGINALLY CREATED.
 
-let jobDetails = document.createElement("div");
+    let jobDetails = createJobDetails(listing)
 
-jobDetails.classList.add("job-details");
+    listingContainer.appendChild(jobDetails)
 
-let jobDetail = document.createElement("div");
+    let skills = createSkills(listing);
 
-jobDetail.classList.add("job-detail");
+    listingContainer.appendChild(skills);
 
-let employer = document.createElement("span");
-
-employer.classList.add("employer");
-
-employer.innerHTML = listingAttempt.employer;
-
-let newOption = document.createElement("span");
-
-newOption.classList.add("new");
-
-newOption.innerHTML = "NEW";
-
-let featuredOption = document.createElement("span");
-
-featuredOption.classList.add("featured");
-
-featuredOption.innerHTML = "FEATURED";
-
-jobDetail.appendChild(employer);
-jobDetail.appendChild(newOption);
-jobDetail.appendChild(featuredOption);
-
-jobDetails.appendChild(jobDetail);
-
-
-let jobTitle = document.createElement("div");
-
-jobTitle.classList.add("job-title");
-
-jobTitle.innerHTML = "<h2>" + listingAttempt.jobTitle + "</h2>";
-
-jobDetails.appendChild(jobTitle);
-
-let listingInfo = document.createElement("div");
-
-listingInfo.classList.add("listing-info");
-
-let infoList = document.createElement("ul");
-
-let whenPosted = document.createElement("li");
-
-if(listingAttempt.dateListed === 1){
-
-    whenPosted.innerHTML = listingAttempt.dateListed + "d ago"
-
-}else{
-
-    whenPosted.innerHTML = listingAttempt.dateListed + "ds ago"
+    document.querySelector(".container").appendChild(listingContainer);
 
 }
 
-let commitment = document.createElement("li");
+function createLogoDiv(listing){
 
-commitment.innerHTML = listingAttempt.commitment
+    let logoDiv = document.createElement("div");
 
-let jobLocation = document.createElement("li");
+    logoDiv.classList.add("logo");
 
-jobLocation.innerHTML = listingAttempt.location;
+    let logo = document.createElement("img");
 
-infoList.appendChild(whenPosted);
-infoList.appendChild(commitment);
-infoList.appendChild(jobLocation);
+    logo.src = listing.logoURL;
+    logo.alt = "logo";
 
-listingInfo.appendChild(infoList)
+    logoDiv.appendChild(logo);
 
-jobDetails.appendChild(listingInfo);
+    return logoDiv
 
-listingContainer.appendChild(jobDetails)
+}
 
-let skills = document.createElement("div");
+function createJobDetails(listing){
 
-skills.classList.add("skills");
+    let jobDetails = document.createElement("div");
 
-let skillsList = document.createElement("ul");
+    jobDetails.classList.add("job-details");
 
-listingAttempt.skills.forEach(function(content){
+    let jobDetail = createJobDetail(listing)
 
-    let skill = document.createElement("li");
-    skill.innerHTML = content;
-    skillsList.appendChild(skill);
-})
+    jobDetails.appendChild(jobDetail);
 
-skills.appendChild(skillsList);
+    let jobTitle = createJobTitle(listing)
 
-listingContainer.appendChild(skills);
+    jobDetails.appendChild(jobTitle);
 
-document.querySelector(".container").appendChild(listingContainer);
+    let listingInfo = createListingInfo(listing);
 
+    jobDetails.appendChild(listingInfo);
 
+    return jobDetails;
 
+}
+
+function createJobDetail(listing){
+
+    let jobDetail = document.createElement("div");
+
+    jobDetail.classList.add("job-detail");
+
+    let employer = createEmployer(listing);
+
+    let newOption = createNewOption(listing);
+
+    let featuredOption = createFeaturedOption(listing);
+
+    jobDetail.appendChild(employer);
+
+    if(listing.isNew){
+
+        jobDetail.appendChild(newOption);
+
+    }
+    if(listing.isFeatured){
+
+        jobDetail.appendChild(featuredOption);
+
+    }
+
+    return jobDetail
+}
+
+function createEmployer(listing){
+
+    let employer = document.createElement("span");
+
+    employer.classList.add("employer");
+
+    employer.innerHTML = listing.employer;
+
+    return employer
+}
+
+function createNewOption(listing){
+
+    let newOption = document.createElement("span");
+
+    newOption.classList.add("new");
+
+    newOption.innerHTML = "NEW";
+
+    return newOption
+}
+
+function createFeaturedOption(listing){
+
+    let featuredOption = document.createElement("span");
+
+    featuredOption.classList.add("featured");
+
+    featuredOption.innerHTML = "FEATURED";
+
+    return featuredOption;
+}
+
+function createJobTitle(listing){
+
+    let jobTitle = document.createElement("div");
+
+    jobTitle.classList.add("job-title");
+
+    jobTitle.innerHTML = "<h2>" + listing.jobTitle + "</h2>";
+
+    return jobTitle;
+}
+
+function createListingInfo(listing){
+
+    let listingInfo = document.createElement("div");
+
+    listingInfo.classList.add("listing-info");
+
+    let infoList = document.createElement("ul");
+
+    let whenPosted = document.createElement("li");
+
+    if(listing.dateListed === 1){
+
+        whenPosted.innerHTML = listing.dateListed + "d ago"
+
+    }else{
+
+        whenPosted.innerHTML = listing.dateListed + "ds ago"
+
+    }
+
+    let commitment = document.createElement("li");
+
+    commitment.innerHTML = listing.commitment
+
+    let jobLocation = document.createElement("li");
+
+    jobLocation.innerHTML = listing.location;
+
+    infoList.appendChild(whenPosted);
+    infoList.appendChild(commitment);
+    infoList.appendChild(jobLocation);
+
+    listingInfo.appendChild(infoList)
+
+    return listingInfo
+}
+
+function createSkills(listing){
+
+    let skills = document.createElement("div");
+
+    skills.classList.add("skills");
+
+    let skillsList = document.createElement("ul");
+
+    listing.skills.forEach(function(content){
+
+        let skill = document.createElement("li");
+        skill.innerHTML = content;
+        skillsList.appendChild(skill);
+
+    })
+
+    skills.appendChild(skillsList);
+
+    return skills;
+}
